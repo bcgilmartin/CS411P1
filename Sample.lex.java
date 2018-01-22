@@ -14,11 +14,16 @@ class Sample {
 		// will read from yyin
 		Yylex yy = new Yylex(yyin);
 		Yytoken t;
+        int line = 0;
 		while ((t = yy.yylex()) != null) {
-			System.out.println(t + " " + t.m_text);
-			if(t.m_text.equals("\n"))
-				System.out.println();
+            if(line!=t.m_line){
+                line++;
+                System.out.println();
+            }
+	        //System.out.print("(" + t + ": " + t.m_text + ")");
+            System.out.print(t.m_tokenType + " ");
 		}
+        System.out.println();
 	}
 }
 class Utility {
@@ -26,7 +31,7 @@ class Utility {
     (
      boolean expr
      )
-      { 
+      {
 	if (false == expr) {
 	  throw (new Error("Error: Assertion failed."));
 	}
@@ -37,10 +42,10 @@ class Utility {
     "Error: Unclosed string.",
     "Error: Illegal character."
     };
-  public static final int E_ENDCOMMENT = 0; 
-  public static final int E_STARTCOMMENT = 1; 
-  public static final int E_UNCLOSEDSTR = 2; 
-  public static final int E_UNMATCHED = 3; 
+  public static final int E_ENDCOMMENT = 0;
+  public static final int E_STARTCOMMENT = 1;
+  public static final int E_UNCLOSEDSTR = 2;
+  public static final int E_UNMATCHED = 3;
   public static void error
     (
      int code
@@ -50,7 +55,7 @@ class Utility {
       }
 }
 class Yytoken {
-  Yytoken 
+  Yytoken
     (
      int index,
      String text,
@@ -498,7 +503,7 @@ class Yylex {
 					case -24:
 						break;
 					case 24:
-						{ 
+						{
 	return (new Yytoken(42,yytext(),yyline,yychar,yychar + yytext().length(), "Number"));
 }
 					case -25:
@@ -546,8 +551,8 @@ class Yylex {
 					case -34:
 						break;
 					case 34:
-						{ 
-	comment_count = comment_count - 1; 
+						{
+	comment_count = comment_count - 1;
 	Utility.Assert(comment_count >= 0);
 	if (comment_count == 0) {
     		yybegin(YYINITIAL);

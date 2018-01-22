@@ -15,13 +15,17 @@ class Sample {
 		// will read from yyin
 		Yylex yy = new Yylex(yyin);
 		Yytoken t;
-		
+        int line = 0;
+
 		while ((t = yy.yylex()) != null) {
-			System.out.println(t + " " + t.m_text);
-			if(t.m_text.equals("\n"))
-				System.out.println();
-			
+            if(line!=t.m_line){
+                line++;
+                System.out.println();
+            }
+	        //System.out.print("(" + t + ": " + t.m_text + ")");
+            System.out.print(t.m_tokenType + " ");
 		}
+        System.out.println();
 	}
 }
 
@@ -30,23 +34,23 @@ class Utility {
     (
      boolean expr
      )
-      { 
+      {
 	if (false == expr) {
 	  throw (new Error("Error: Assertion failed."));
 	}
       }
-  
+
   private static final String errorMsg[] = {
     "Error: Unmatched end-of-comment punctuation.",
     "Error: Unmatched start-of-comment punctuation.",
     "Error: Unclosed string.",
     "Error: Illegal character."
     };
-  
-  public static final int E_ENDCOMMENT = 0; 
-  public static final int E_STARTCOMMENT = 1; 
-  public static final int E_UNCLOSEDSTR = 2; 
-  public static final int E_UNMATCHED = 3; 
+
+  public static final int E_ENDCOMMENT = 0;
+  public static final int E_STARTCOMMENT = 1;
+  public static final int E_UNCLOSEDSTR = 2;
+  public static final int E_UNMATCHED = 3;
 
   public static void error
     (
@@ -58,7 +62,7 @@ class Utility {
 }
 
 class Yytoken {
-  Yytoken 
+  Yytoken
     (
      int index,
      String text,
@@ -91,7 +95,7 @@ class Yytoken {
 
 %{
   private int comment_count = 0;
-%} 
+%}
 %line
 %char
 %state COMMENT
@@ -104,7 +108,7 @@ STRING_TEXT=(\\\"|[^\n\"]|\\{WHITE_SPACE_CHAR}+\\)*
 COMMENT_TEXT=([^/*\n]|[^*\n]"/"[^*\n]|[^/\n]"*"[^/\n]|"*"[^/\n]|"/"[^*\n])*
 
 
-%% 
+%%
 
 <YYINITIAL> "," { return (new Yytoken(0,yytext(),yyline,yychar,yychar+1,"comma")); }
 <YYINITIAL> ":" { return (new Yytoken(1,yytext(),yyline,yychar,yychar+1,"colon")); }
@@ -137,8 +141,8 @@ COMMENT_TEXT=([^/*\n]|[^*\n]"/"[^*\n]|[^/\n]"*"[^/\n]|"*"[^/\n]|"/"[^*\n])*
 <YYINITIAL> "/*" { yybegin(COMMENT); comment_count = comment_count + 1; }
 
 <COMMENT> "/*" { comment_count = comment_count + 1; }
-<COMMENT> "*/" { 
-	comment_count = comment_count - 1; 
+<COMMENT> "*/" {
+	comment_count = comment_count - 1;
 	Utility.Assert(comment_count >= 0);
 	if (comment_count == 0) {
     		yybegin(YYINITIAL);
@@ -148,7 +152,7 @@ COMMENT_TEXT=([^/*\n]|[^*\n]"/"[^*\n]|[^/\n]"*"[^/\n]|"*"[^/\n]|"/"[^*\n])*
 
 <YYINITIAL> \"{STRING_TEXT}\" {
 	String str =  yytext().substring(1,yytext().length() - 1);
-	
+
 	Utility.Assert(str.length() == yytext().length() - 2);
 	return (new Yytoken(40,str,yyline,yychar,yychar + str.length(), "String"));
 }
@@ -158,20 +162,14 @@ COMMENT_TEXT=([^/*\n]|[^*\n]"/"[^*\n]|[^/\n]"*"[^/\n]|"*"[^/\n]|"/"[^*\n])*
 	Utility.error(Utility.E_UNCLOSEDSTR);
 	Utility.Assert(str.length() == yytext().length() - 1);
 	return (new Yytoken(41,str,yyline,yychar,yychar + str.length(), "Unclosed String"));
-} 
-<YYINITIAL> {DIGIT}+ { 
+}
+<YYINITIAL> {DIGIT}+ {
 	return (new Yytoken(42,yytext(),yyline,yychar,yychar + yytext().length(), "Number"));
-}	
+}
 <YYINITIAL> {ALPHA}({ALPHA}|{DIGIT}|_)* {
 	return (new Yytoken(43,yytext(),yyline,yychar,yychar + yytext().length(), "id"));
-}	
+}
 <YYINITIAL,COMMENT> . {
         System.out.println("Illegal character: <" + yytext() + ">");
 	Utility.error(Utility.E_UNMATCHED);
 }
-
-
-
-
-
-
