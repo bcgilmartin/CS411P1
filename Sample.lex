@@ -17,14 +17,24 @@ class Sample {
 		Yytoken t;
 
         int line = 0;
+
+        Trie trie = new Trie();
+
+
 		while ((t = yy.yylex()) != null) {
             if (line != t.m_line) {
                 line++;
                 System.out.println();
             }
+            if (t.m_tokenType.equals("id")) {
+                System.out.println(t.m_text);
+                trie.checkWord(t.m_text);
+            }
             System.out.print(t.m_tokenType + " ");
 		}
         System.out.println();
+
+        trie.print();
 	}
 }
 
