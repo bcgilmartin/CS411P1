@@ -14,11 +14,15 @@ class Sample {
 		// will read from yyin
 		Yylex yy = new Yylex(yyin);
 		Yytoken t;
+        int line = 0;
 		while ((t = yy.yylex()) != null) {
-			System.out.println(t + " " + t.m_text);
-			if(t.m_text.equals("\n"))
-				System.out.println();
+            if (line != t.m_line) {
+                line++;
+                System.out.println();
+            }
+            System.out.print(t.m_tokenType + " ");
 		}
+        System.out.println();
 	}
 }
 class Utility {
