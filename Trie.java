@@ -29,7 +29,7 @@ public class Trie {
 	}
 
 	public void addKeywords() throws FileNotFoundException {
-		File keywordsFile = new File("testwords.txt");
+		File keywordsFile = new File("keywords.txt");
 		Scanner readKeywords = new Scanner(keywordsFile);
 		String temp;
 		char[] word;
