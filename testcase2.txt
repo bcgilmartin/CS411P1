@@ -1,0 +1,67 @@
+/*
+CS411 test case 2
+Testing remaining tokens from example
+*/
+
+void main(){
+	int x = 1;
+	int y = 2;
+	boolean isBigger = false;
+	boolean isOne = false;
+	if(x != y) x=3;
+	for( ;x>=3; ){ x=x-1; y=y-1; }
+	if(x == 2 && y == 1) 
+		isBigger = true;
+	if(x == 1 || y == 1)
+		isOne == true;
+	int z = x % y;
+	println(z);
+}
+class cs411 implements cs311{
+	int Dumb;
+	double dumb;
+	boolean flag;
+	void extraInputs(){
+		string s;
+		int [] a;
+		flag = true;
+		Dumb = 0X89aB; dumb = 123456E+7;
+		s = “hello world”;
+		println(hello);
+		while (x = (Dumb/10) <0) println (s, “ have fun !”);
+		a = newarray (20, int);
+	}
+}
+class cs408 extends cs411{
+	int Smart;
+	double smart;
+	boolean understanding;
+	void extraInputs(){
+		string s;
+		int [] a;
+		flag = true;
+		Dumb = 0X89aB; dumb = 123456E+7;
+		s = “hello world”;
+		println(hello);
+		while (x = (Dumb/10) <0) println (s, “ have fun !”);
+		a = newarray (20, int);
+		string s;
+		int [] a;
+		flag = true;
+		Dumb = 0X89aB; dumb = 123456E+7;
+		s = “hello world”;
+		println(hello);
+		while (x = (Dumb/10) <0) println (s, “ have fun !”);
+		a = newarray (20, int);
+	void extraExtraInputs(){
+		Smart = Dumb;
+		smart = dumb;
+		understanding = false;
+		if(flag == true) understanding = true;
+}
+interface cs311{
+	void extraInputs();
+}
+	
+
+		
