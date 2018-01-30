@@ -217,9 +217,6 @@ COMMENT_TEXT=([^/*\n]|[^*\n]"/"[^*\n]|[^/\n]"*"[^/\n]|"*"[^/\n]|"/"[^*\n])*
 <COMMENT> {COMMENT_TEXT} { }
 
 <YYINITIAL> "//".* { }
-<YYINITIAL> {ALPHA}({ALPHA}|{DIGIT}|_)* {
-	return (new Yytoken(43,yytext(),yyline,yychar,yychar + yytext().length(), "id"));
-}
 <YYINITIAL,COMMENT> . {
         System.out.println("Illegal character: <" + yytext() + ">");
 	Utility.error(Utility.E_UNMATCHED);
