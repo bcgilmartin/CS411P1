@@ -1,4 +1,6 @@
 import java.lang.System;
+import java.util.List;
+import java.util.LinkedList;
 class Sample {
     public static void main(String argv[]) throws java.io.IOException {
 		if (argv.length != 1) {
@@ -16,13 +18,33 @@ class Sample {
 		Yytoken t;
         int line = 0;
         Trie trie = new Trie();
+        // adding keywords
+        List<String> keywordsList = new LinkedList<String>();
+        keywordsList.add("id");
+        keywordsList.add("booleanconstant");
+        keywordsList.add("boolean");
+        keywordsList.add("break");
+        keywordsList.add("class");
+        keywordsList.add("double");
+        keywordsList.add("extends");
+        keywordsList.add("for");
+        keywordsList.add("if");
+        keywordsList.add("implements");
+        keywordsList.add("int");
+        keywordsList.add("interface");
+        keywordsList.add("newarray");
+        keywordsList.add("println");
+        keywordsList.add("readln");
+        keywordsList.add("return");
+        keywordsList.add("string");
+        keywordsList.add("void");
+        keywordsList.add("while");
 		while ((t = yy.yylex()) != null) {
             if (line != t.m_line) {
                 line++;
                 System.out.println();
             }
-            if (t.m_tokenType.equals("id")) {
-                System.out.println(t.m_text);
+            if (keywordsList.contains(t.m_tokenType)) {
                 trie.checkWord(t.m_text);
             }
             System.out.print(t.m_tokenType + " ");

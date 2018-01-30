@@ -144,21 +144,103 @@ public class Trie {
 	}
 
 	public void print() {
-		String switchPrint = "", symbolPrint = "", nextPrint = "";
-		for (int i = 0; i < switchArray.length; i++) {
-			switchPrint = switchPrint + " " + switchArray[i];
+		String temp;
+		System.out.print("        ");
+		for(int i = 97; i < 115; i++) {
+			System.out.print("   " + (char)i);
 		}
-		System.out.println(switchPrint);
+		System.out.println();
+		System.out.print("switch: ");
+		for(int i = 0; i < 18; i++) {
+			temp = String.valueOf(switchArray[i]);
+			while(temp.length() < 4) {
+				temp = " " + temp;
+			}
+			System.out.print(temp);
+		}
 
-		for (int j = 0; j < symbolArray.length; j++) {
-			symbolPrint = symbolPrint + " " + symbolArray[j];
+		System.out.print("        ");
+		for(int i = 115; i < 123; i++) {
+			System.out.print("   " + (char)i);
 		}
-		System.out.println(symbolPrint);
+		for(int i = 65; i < 75; i++) {
+			System.out.print("   " + (char)i);
+		}
+		System.out.println();
+		System.out.print("switch: ");
+		for(int i = 18; i < 36; i++) {
+			temp = String.valueOf(switchArray[i]);
+			while(temp.length() < 4) {
+				temp = " " + temp;
+			}
+			System.out.print(temp);
+		}
+		System.out.print("        ");
+		for(int i = 75; i < 91; i++) {
+			System.out.print("   " + (char)i);
+		}
+		System.out.println();
+		System.out.print("switch: ");
+		for(int i = 36; i < 52; i++) {
+			temp = String.valueOf(switchArray[i]);
+			while(temp.length() < 4) {
+				temp = " " + temp;
+			}
+			System.out.print(temp);
+		}
+		System.out.println("\n\n");
 
-		for (int k = 0; k < nextArray.length; k++) {
-				nextPrint = nextPrint + " " + nextArray[k];
+		int dist = 0;
+		while(symbolArray[dist] != '\u0000') {
+			dist += 18;
+			System.out.print("        ");
+			for(int i = (dist-18); i < dist; i++) {
+				temp = String.valueOf(i);
+				while(temp.length() < 4) {
+					temp = " " + temp;
+				}
+				System.out.print(temp);
+			}
+			System.out.println();
+			System.out.print("symbol: ");
+			for(int i = (dist-18); i < dist; i++) {
+				temp = String.valueOf(symbolArray[i]);
+				while(temp.length() < 4) {
+					temp = " " + temp;
+				}
+				System.out.print(temp);
+			}
+			System.out.println();
+			System.out.print("next:   ");
+			for(int i = (dist-18); i < dist; i++) {
+				if(nextArray[i] == -1) {
+					temp = "";
+				} else {
+					temp = String.valueOf(nextArray[i]);
+				}
+				while(temp.length() < 4) {
+					temp = " " + temp;
+				}
+				System.out.print(temp);
+			}
 		}
-		System.out.println(nextPrint);
 	}
+	// public void print() {
+	// 	String switchPrint = "", symbolPrint = "", nextPrint = "";
+	// 	for (int i = 0; i < switchArray.length; i++) {
+	// 		switchPrint = switchPrint + " " + switchArray[i];
+	// 	}
+	// 	System.out.println(switchPrint);
+    //
+	// 	for (int j = 0; j < symbolArray.length; j++) {
+	// 		symbolPrint = symbolPrint + " " + symbolArray[j];
+	// 	}
+	// 	System.out.println(symbolPrint);
+    //
+	// 	for (int k = 0; k < nextArray.length; k++) {
+	// 			nextPrint = nextPrint + " " + nextArray[k];
+	// 	}
+	// 	System.out.println(nextPrint);
+	// }
 
 }
